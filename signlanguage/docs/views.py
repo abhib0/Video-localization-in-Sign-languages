@@ -47,7 +47,9 @@ def index(request):
     if request.method == 'POST':
           
         link = request.POST['link']
-        output_folder = '/Users/anishasinghoberoi/django-webapp/signlanguage/static/vids'
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        output_folder = os.path.join(BASE_DIR, 'static/vids')
+        # output_folder = '/Users/anishasinghoberoi/django-webapp/signlanguage/static/vids'
         output_filename = 'one.mp4' 
         output_path = os.path.join(output_folder, output_filename)
         if os.path.exists(output_path):
