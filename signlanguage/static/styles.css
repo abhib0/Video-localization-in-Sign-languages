@@ -1,0 +1,91 @@
+
+.abc{
+    padding-left: 7rem;
+    padding-top: 10rem;
+    
+}
+
+.def{
+    padding-top: 3rem;
+}
+
+h1{
+    font-weight: 900;
+    font: #000000
+}
+
+h3{
+    font-weight: 800;
+}
+
+.card{
+    padding: 1.5em .5em .5em;
+    border-radius: 2em;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.file-type{
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+  
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+  
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.file-btn {   
+  color: white;
+  background-color:#4546C6;
+  padding: 8px 20px;
+  border-radius: 3rem;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.file-btn:hover {
+  background-color: black;
+}
+
+.footer-ele{
+  display:inline;
+}
+
+.logo{
+  font-weight: 500;
+}
+
+
+@keyframes loading {
+  from {
+      transform: rotate(0turn);
+  }
+  to{
+    transform: rotate(1turn);
+  }
+}
+
+
+#spinner {
+  display: none;
+}

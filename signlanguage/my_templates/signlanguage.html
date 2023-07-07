@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <header>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- Font awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <!-- custom css & js -->
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <script src="{% static 'drop.js' %}"></script>
+        <style>
+            .put-cen {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+            }
+            .file-btn {   
+                color: white;
+                background-color:#5158E4;
+                padding: 8px 20px;
+                border-radius: 3rem;
+                font-size: 13px;
+                font-weight: bold;
+            }
+
+            .file-btn:hover {
+                background-color: #4546C6;
+                color: white;
+            }
+          </style>    
+        <title>Sign Language</title>
+        <nav class="navbar navbar-expand-lg navbar-light mt-2">
+            <img src="https://podcast.adobe.com/adobe-logo-no-text.7f2252dec59ca6c13be4.svg" class = "ml-5 px-2">
+            <a class="navbar-brand" href="#">Adobe</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Quick Tools
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+        </nav>
+        <hr>
+    </header>
+    <body>
+        <div class = "row mb-5 pb-5">
+            <div class="col-md-4 ml-5 abc" style = "max-width: 40rem;">
+                <h1 class = "mb-3">Convert any video to corresponding sign language</h1>
+                <p>Help hearing impaired and hard of hearing people communicate comfortably</p>
+            </div>
+            <div class="col-md-4 def mt-5 ml-5">
+                <div class = "card rounded-9 text-center" id = "drop-area" style="border: 3px solid #5158E4; max-width: 30rem;">
+                    <div class = "text-center mt-1">
+                        <img src="{% static 'imgs/vid-img.png' %}" class = "img-fluid" width = 20%> 
+                    </div>
+                    <div class = "mb-2 mt-2">
+                        <h3>Select a video file</h3>
+                    </div>
+                    <div class = "mt-2 mb-2">
+                        <div class = "row">
+                            <div class = "col-sm" style="display: inline;border-right: 1px solid #8DA2F8;">                                
+                                <div class="dropdown mb-1 ">
+                                    <p class = "feature-list pb-0 mb-0" style="font-weight: 800;">Video only</p>                                  
+                                    <button class="btn file-type dropdown-toggle" data-mdb-toggle="dropdown" >File Types</button>
+                                    <p class="dropdown-menu text-center">.mp4, .mov</p>
+                                </div>
+                            </div>
+                            <div class = "col-sm border-end" style="display: inline;border-right: 1px solid #8DA2F8;">
+                                <p class = "feature-list pb-0 mb-0" style="font-weight: 800;">10 mins</p>
+                                <p>Max Duration</p>
+                            </div>
+                            <div class = "col-sm">
+                                <p class = "feature-list pb-0 mb-0" style="font-weight: 800;">100 MB</p>
+                                <p>Max Size</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "d-none" id = "hideme2" >
+                        <form action="" method="post" class="form">
+                            {% csrf_token %}
+                            <div class = "row no-gutters mt-3 " id = "div-1">
+                                <div class = "col" >
+                                    <p>Enter YouTube link</p>
+                                </div>
+                                <div class = "col" >
+                                    <input type="text" id="link" name="link" id = "myInput"><br><br> 
+                                </div>
+                                <div class = "col" hidden>
+                                    <input type="submit" value="Download" class="btn upload-btn" id = "myBtn">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <p>{{ msg }}</p> -->
+                    <div>
+                        <form method = "POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class = "row no-gutters mt-3 mb-3 div-2">
+                                <div class = " col" >
+                                    <button class = "btn file-btn upload-btn-wrapper"> Choose file
+                                        {{ form.file }}
+                                    </button> 
+                                </div>
+                                <div class = "col">
+                                    <button type = "submit" class="btn file-btn">Upload</button>
+                                </div>
+                            </div>
+                        </form> 
+                    </div>
+                    <div class = "text-center pb-3 change-btn" id = "change-btn">
+                        <a href="/index">
+                            <input id ="my-btn" class = "btn file-btn" type="button" name="mybtn2"  value="Enter URL instead"></input>
+                        </a>
+                    </div>
+                    <div hidden>
+                        <a href="{% url 'download' %}" download>Download</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mt-5">
+                <div id="spinner" style="display: none;">
+                    <div class="spinner-border put-cen" role="status" style="color: #5158E4">
+                      <span class="sr-only" >Loading...</span>
+                    </div>
+                </div>
+                {% if filename %}
+                <div class="row h-100 flex-column">
+                    <div class="flex-fill">
+                        <video width="340" height="250" autoplay controls="controls" preload="preload">
+                            <source src="{% static 'vids/one.mp4' %}?v={{ random_number }}" type="video/mp4"></source>
+                        </video>
+                    </div>
+                    <div class="flex-fill">
+                        <video width="340" height="250" autoplay controls="controls" preload="preload">
+                            <source src="{% static 'vids/one.mp4' %}?v={{ random_number }}" type="video/mp4"></source>
+                        </video>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <script>
+            $(document).ready(function() {
+              // Hide the spinner when the document is ready
+              $('#spinner').hide();
+      
+              // Add an event listener to detect when the tab is loading
+              $(window).on('beforeunload', function() {
+                // Display the spinner when the tab is loading
+                $('#spinner').show();
+              });
+      
+              // Add an event listener to detect when the tab finishes loading
+              $(window).on('load', function() {
+                // Hide the spinner when the tab finishes loading
+                $('#spinner').hide();
+              });
+            });
+        </script>
+    </body>
+    <footer class="text-lg-start   fixed-bottom">
+        <div class="pt-5 pb-5 pl-5" style="background-color: rgba(0, 0, 0, 0.1);">
+            <section class="mb-4">
+                <img src="https://podcast.adobe.com/adobe-logo-no-text.7f2252dec59ca6c13be4.svg" class = "ml-5 px-2">
+                <p class = "footer-ele logo mr-5">Adobe</p>
+                <p class = "footer-ele text-muted mr-5">Copyright 2023 Adobe</p> 
+                <p class = "footer-ele text-muted mr-5">All Rights Reserved</p>
+                <p class = "footer-ele text-muted mr-5">Privacy</p> 
+            </section>
+        </div>
+    </footer>
+</html>
